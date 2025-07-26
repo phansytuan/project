@@ -1,0 +1,723 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar Navigation */
+.side-nav {
+    background-color: #1a1a2e;
+    color: white;
+    height: 100vh;
+    width: 200px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+.side-nav a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 15px 20px;
+    border-bottom: 1px solid #30304d;
+}
+.side-nav a:hover, .side-nav a.active {
+    background-color: #30304d;
+}
+
+/* Top Navigation */
+.top-nav {
+    background-color: white;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*For student-overview.blade */
+/* Main Content */
+.main-content {
+    margin-left: 200px;
+    padding: 0;
+}
+
+/* Headers */
+.major-header {
+    background-color: #212529;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo-container {
+    max-width: 200px; 
+    max-height: 100px;
+    display: block;
+}
+
+.logo-container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Table Container */
+.table-container {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Tables */
+.course-table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+.course-table th {
+    background-color: #f87171;
+    color: white;
+}
+
+/* Status Colors */
+.status-completed {
+    color: #22c55e;
+    font-weight: bold;
+}
+.status-enrolled {
+    color: #3b82f6;
+    font-weight: bold;
+}
+.status-failed, .status-empty {
+    color: #ef4444;
+    font-weight: bold;
+}
+.empty-mark {
+    color: #9ca3af;
+}
+
+/*For academic-planner.blade */
+/* Semester Flow */
+/* Default: Horizontal Semester Flow */
+.semesters-flow {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding: 20px;
+    justify-content: flex-start; /* Align semesters from the left */
+    gap: 20px;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Individual semester rows align horizontally */
+.semester-row {
+    display: flex; /* Align semesters in a row */
+    width: 100%;
+    margin-bottom: 30px;
+    align-items: center;
+    text-align: center;
+}
+
+/* Semester boxes appear side by side */
+.semester-box {
+    border: 1px solid #ddd;
+    width: 320px; 
+    min-height: 280px; 
+    cursor: pointer;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px; 
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}    
+
+/* Hover effect */
+.semester-box:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+/* Header remains unchanged */
+.semester-header {
+    background-color: #f87171;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Highlight current semester */
+.semester-box.current-semester .semester-header {
+    background-color: #3b82f6;
+}
+
+/* Content inside semester */
+/* Unit row: Display as a flex container */
+.unit-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Unit type: Keep a fixed width */
+.unit-type {
+    min-width: 70px; /* Adjust width as needed */
+    font-weight: bold;
+    color: #f87171;
+    text-align: left;
+}
+
+/* Unit details: Take remaining space */
+.unit-details {
+    flex-grow: 1;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* Ensure proper spacing inside semester content */
+.semester-content {
+    padding: 15px;
+    flex-grow: 1; /* Allow dynamic height */
+    max-height: none; /* Remove max height */
+    overflow-y: visible; /* Prevent scrolling */
+}
+
+/* Horizontal Arrows */
+.flow-arrow {
+    font-size: 30px;
+    color: #f87171;
+    margin: 0 20px; 
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Arrow direction for horizontal flow */
+.flow-arrow::after {
+    content: "→"; 
+}
+
+/* ================================ */
+/* When Popup Opens: Convert to Vertical Flow */
+/* ================================ */
+
+.semesters-container.popup-active .semesters-flow {
+    flex-direction: column; /* Stack vertically */
+    flex-wrap: nowrap;
+    justify-content: flex-start; /* Align semesters from the top */
+    align-items: center;
+    overflow-x: hidden; /* Remove horizontal scrolling */
+    gap: 10px; /* Reduce gap */
+}
+
+/* Each semester is a block inside the sidebar */
+.semesters-container.popup-active .semester-row {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* Semester boxes inside the popup */
+.sidebar-popup.active .semester-box {
+    width: 95%; 
+    max-width: 500px; 
+    margin: 15px auto;
+    padding: 15px; 
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Hover effect inside popup */
+.sidebar-popup.active .semester-box:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+/* Header styling inside popup */
+.sidebar-popup.active .semester-header {
+    text-align: center; /* Keep text centered */
+}
+
+/* Content inside popup */
+.sidebar-popup.active .semester-content {
+    padding: 15px;
+    min-height: auto;
+    max-height: 300px; /* Adjust height inside popup */
+    overflow-y: auto;
+}
+
+/* Ensure current semester highlight is visible */
+.sidebar-popup.active .semester-box.current-semester .semester-header {
+    background-color: #3b82f6;
+}
+
+/* Unit Row inside popup */
+.sidebar-popup.active .unit-row {
+    display: flex;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+/* Unit type label */
+.sidebar-popup.active .unit-type {
+    width: 60px;
+    color: #f87171;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Unit details */
+.sidebar-popup.active .unit-details {
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+/* Change arrows for vertical layout inside popup */
+.semesters-container.popup-active .flow-arrow {
+    font-size: 30px;
+    color: #f87171;
+    margin: 15px auto;
+    text-align: center;
+    display: block;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Adjust arrows when in popup mode */
+.semesters-container.popup-active .flow-arrow::after {
+    content: "↓";
+    transform: rotate(90deg);
+}
+
+/* Ensure the overlay covers the full page */
+/* Overlay */
+.overlay {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Higher than popup when active */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Sidebar Popup Styles */
+.sidebar-popup {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Hidden off-screen */
+    width: 45%; /* Adjust as needed */
+    height: 100vh; /* Full viewport height */
+    background: white;
+    box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1010;
+    overflow-y: auto; /* Enables scrolling */
+    padding: 20px;
+    opacity: 0;
+    transition: right 0.3s ease-in-out, opacity 0.3s;
+}
+
+/* Show sidebar when active */
+.sidebar-popup.active {
+    right: 0;
+    opacity: 1;
+}
+
+/* Fix popup header at the top */
+.popup-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px;
+    z-index: 1020; /* Higher than content */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Fix close button inside header */
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 1030; /* Highest priority */
+    padding: 5px;
+    border-radius: 50%;
+    color: #f87171;
+}
+
+.popup-close:hover {
+    color: #ef4444;
+}
+
+/* Ensure content is scrollable */
+.popup-content {
+    max-height: calc(100vh - 60px); /* Prevents overflowing beyond viewport */
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .semester-row {
+        flex-wrap: wrap;
+    }
+    .semester-box {
+        margin-bottom: 20px;
+    }
+    .flow-arrow {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding-top: 60px;
+    }
+    .side-nav {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        display: flex;
+        justify-content: space-around;
+    }
+    .side-nav a {
+        border-bottom: none;
+        padding: 10px;
+        font-size: 14px;
+    }
+    .logo-container {
+        display: none;
+    }
+    .sidebar-popup {
+        width: 100%;
+    }
+}
+
+/* General Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Ensure Table Headers Remain Visible */
+.table thead {
+    background-color: #f3f4f6;
+    font-weight: bold;
+}
+
+/* Consistent Layout */
+.unit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f3f4f6;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Fix Table Overflow */
+#electiveTableContainer {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Style for Add and Remove Buttons */
+.table td button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    color: white; /* Ensure text is white */
+}
+
+/* Add Button (Blue) */
+.btn-primary {
+    background-color: #3b82f6 !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb !important;
+}
+
+/* Remove Button (Red) */
+.btn-danger {
+    background-color: #f87171 !important;
+    color: white !important;
+}
+
+.btn-danger:hover {
+    background-color: #ef4444 !important;
+}
+
+/* Ensure Buttons Are Centered in Table Cells */
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Study Planner Button */
+.button-container {
+    display: flex; /* Align buttons in a row */
+    gap: 15px; /* Space between buttons */
+    justify-content: left; /* Center align */
+    bottom: 30px;
+    right: 30px;
+}
+
+.save-button, .enrollment-button {
+    padding: 10px 20px;
+    background-color: #f87171;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.disabled-semester {
+    cursor: not-allowed;
+    background-color: #cccccc;
+    color: #666666;
+    pointer-events: none;
+}
+
+
+.next-semester-info {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.elective-text {
+    text-align: left !important;
+    padding-left: 30px !important; /* Adjust as needed */
+    color: #777; /* Change to your desired color */
+    font-weight: bold;
+}
+
+#electiveSection {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+}
+
+/*For academic-dh.blade */
+.course-container {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.course-header {
+    background-color: #1a1a2e;
+    color: white;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+.course-item {
+    border-bottom: 1px solid #eee;
+    padding: 0;
+    margin-bottom: 20px;
+}
+.course-details {
+    padding: 15px;
+    cursor: pointer;
+}
+.course-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    border-left: 1px solid #ddd;
+}
+.course-stats div {
+    padding: 10px;
+    border-right: 1px solid #ddd;
+}
+.course-expanded {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    display: none;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.42857;
+}
+.btn-green {
+    background-color: #4CAF50;
+    color: white;
+}
+.btn-red {
+    background-color: #f44336;
+    color: white;
+}
+.staff-row {
+    margin-bottom: 10px;
+}
+.schedule-form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.schedule-form-group label {
+    margin-right: 10px;
+    min-width: 100px;
+}
+.schedule-form-group input {
+    margin-right: 10px;
+}
+/* teachingstaffs */
+/* Staff Management Styles */
+.filter-container {
+    border-radius: 8px;
+}
+
+.staff-card {
+    transition: transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.staff-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.staff-avatar {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.staff-skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.staff-skills .badge {
+    font-weight: normal;
+    padding: 6px 10px;
+}
+
+.available-header {
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+}
+
+.available-header .fas {
+    transition: transform 0.3s;
+}
+
+.current-staff-container {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.current-staff-container table {
+    margin-bottom: 0;
+}
+
+.current-staff-container th {
+    background-color: #dc3545;
+    color: white;
+    border-color: #c82333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filter-container .row {
+        flex-direction: column;
+    }
+    
+    .filter-container .col-md-2,
+    .filter-container .col-md-3 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .current-staff-container {
+        overflow-x: auto;
+    }
+}
+/* Remove borders from all elements in the stats section */
+.course-stats {
+    display: flex;
+    justify-content: space-between;
+    border: none !important;
+    border-left: none !important;
+}
+
+.course-stats > div {
+    border: none !important;
+    text-align: center;
+    padding: 0 10px;
+    position: relative;
+}
+
+/* Remove any vertical lines created by pseudo-elements */
+.course-stats > div::before,
+.course-stats > div::after {
+    display: none !important;
+}
+
+/* Remove any vertical lines from parent containers */
+.course-details {
+    border-right: none !important;
+}
+
+.row.m-0.course-details {
+    border-right: none !important;
+}
+
+/* Ensure no vertical dividers in the entire section */
+.course-item * {
+    border-right: none !important;
+    border-left: none !important;
+}
